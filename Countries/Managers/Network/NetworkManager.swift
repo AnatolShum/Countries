@@ -10,7 +10,6 @@ import Combine
 
 class NetworkManager<Model: Codable> {
     private let url = "https://restcountries.com/v3.1/all"
-//    let url = "https://restcountries.com/v3.1/name/deutschland"
     
     enum NetworkErrors: Error {
         case invalidUrl

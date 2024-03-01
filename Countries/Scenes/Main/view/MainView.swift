@@ -10,7 +10,7 @@ import SwiftData
 
 struct MainView: View {
     @Environment(\.modelContext) var modelContext
-    @Query(sort: \Country.name) var countries: [Country]
+    @Query(sort: \Country.names.name, order: .forward) var countries: [Country]
     @ObservedObject var viewModel = MainViewModel()
     
     var body: some View {
@@ -21,8 +21,7 @@ struct MainView: View {
                 List {
                     ForEach(countries) { country in
                         VStack(alignment: .leading) {
-                            Text(country.name.name)
-                            Text(country.name.officialName)
+                            Text(country.names.name)
                         }
                     }
                 }
