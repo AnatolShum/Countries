@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  SearchViewModel.swift
 //  Countries
 //
 //  Created by Anatolii Shumov on 29.02.2024.
@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import SwiftData
 
-class MainViewModel: ObservableObject {
+class SearchViewModel: ObservableObject {
     private let networkManager = NetworkManager<Country>()
     private var cancellable: AnyCancellable?
     @Published var error: String?
