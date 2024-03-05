@@ -18,37 +18,103 @@ struct DetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
-                Text(country.names.name)
-                    .font(.title2)
-                    .padding(.bottom, 10)
+            VStack(alignment: .leading) {
+                VStack(alignment: .center, spacing: 10) {
+                    Text(country.names.name)
+                        .font(.title2)
+                    
+                    AsyncImage(url: URL(string: country.flags.url ?? ""))
+                }
+                .padding(.bottom, 10)
                 
-                AsyncImage(url: URL(string: country.flags.url ?? ""))
-                    .padding(.bottom, 10)
-                
-                HStack(alignment: .center) {
-                    Text("official name:")
+                HStack {
+                    Text("Official name:")
                     Text(country.names.officialName)
                         .bold()
                 }
                 .padding(.bottom, 10)
                 
-                if let currency = viewModel.formattedCurrency() {
-                    HStack(alignment: .center) {
-                        Text("Currency:")
-                        Text(currency)
+                if let capital = country.capital {
+                    HStack {
+                        Text("Capital:")
+                        Text(capital.joined(separator: ", "))
                             .bold()
                     }
                     .padding(.bottom, 10)
                 }
                 
-                HStack(alignment: .center) {
-                    Text("Region:")
-                    Text(country.region)
+                if let currency = viewModel.formattedCurrency() {
+                    HStack(alignment: .top) {
+                        Text("Currency:")
+                        
+                        VStack(alignment: .leading) {
+                            Text(currency)
+                                .bold()
+                        }
+                    }
+                    .padding(.bottom, 10)
+                }
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Region:")
+                        Text(country.region)
+                            .bold()
+                    }
+                    
+                    if let subregion = country.subregion {
+                        Text(subregion)
+                            .bold()
+                    }
+                }
+                .padding(.bottom, 10)
+                
+                if !country.languages.isEmpty {
+                    HStack {
+                        Text(country.languages.count == 1 ? "Language:" : "Languages:")
+                        Text(country.languages.joined(separator: ", "))
+                            .bold()
+                    }
+                    .padding(.bottom, 10)
+                }
+                
+                HStack {
+                    Text("Population:")
+                    Text(country.population.formatted(.number))
                         .bold()
                 }
                 .padding(.bottom, 10)
+                
+                HStack {
+                    Text("Left/Right-hand traffic:")
+                    Text(country.car.side)
+                        .bold()
+                }
+                .padding(.bottom, 10)
+                
+                if !country.timezones.isEmpty {
+                    HStack(alignment: .top) {
+                        Text(country.timezones.count == 1 ? "Time zone:" : "Time zones:")
+                        VStack(alignment: .leading) {
+                            Text(country.timezones.joined(separator: ", "))
+                                .bold()
+                        }
+                    }
+                    .padding(.bottom, 10)
+                }
+                
+                if let flagInfo = country.flags.info {
+                    HStack(alignment: .top) {
+                        Text("Flag info:")
+                        VStack(alignment: .leading) {
+                            Text(flagInfo)
+                                .bold()
+                        }
+                    }
+                }
+                
             }
+            .padding(.horizontal, 30)
         }
     }
 }

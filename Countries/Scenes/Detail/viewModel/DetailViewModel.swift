@@ -32,4 +32,9 @@ class DetailViewModel: ObservableObject {
             return nil
         }
     }
+    
+    func arrayToString(_ array: [String]?) -> String? {
+        guard let array else { return nil }
+        return array.joined(separator: ", ")
+    }
 }
