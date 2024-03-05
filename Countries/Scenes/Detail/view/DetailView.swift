@@ -6,14 +6,27 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct DetailView: View {
     let country: Country
     @ObservedObject private var viewModel: DetailViewModel
+    private let position: MapCameraPosition?
     
     init(country: Country) {
         self.country = country
         self._viewModel = ObservedObject(wrappedValue: DetailViewModel(country: country))
+        guard let coordinate = country.coordinate else {
+            self.position = nil
+            return
+        }
+        self.position = MapCameraPosition.region(MKCoordinateRegion(
+            center: CLLocationCoordinate2D(
+                latitude: coordinate.latitude,
+                longitude: coordinate.longitude),
+            span: MKCoordinateSpan(
+                latitudeDelta: 1,
+                longitudeDelta: 1)))
     }
     
     var body: some View {
@@ -125,6 +138,12 @@ struct DetailView: View {
                     }
                 }
                 .padding(.horizontal, 30)
+                
+                if let position {
+                    Map(initialPosition: position, interactionModes: [.zoom])
+                        .frame(height: 500)
+                    
+                }
             }
         }
         .toolbarBackground(.hidden, for: .navigationBar)
@@ -146,5 +165,8 @@ struct DetailView: View {
         timezones: ["UTC+02:00"],
         flags: Flag(
             url: "https://flagcdn.com/w320/cy.png",
-            info: "The flag of Cyprus has a white field, at the center of which is a copper-colored silhouette of the Island of Cyprus above two green olive branches crossed at the stem.")))
+            info: "The flag of Cyprus has a white field, at the center of which is a copper-colored silhouette of the Island of Cyprus above two green olive branches crossed at the stem."),
+        coordinate: Coordinate(
+            latitude: 35.0,
+            longitude: 33.0)))
 }

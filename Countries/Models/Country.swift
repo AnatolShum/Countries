@@ -20,6 +20,7 @@ class Country: Codable, Equatable {
     var car: Car
     var timezones: [String]
     var flags: Flag
+    var coordinate: Coordinate?
     
     init(
         names: CountryName,
@@ -31,7 +32,8 @@ class Country: Codable, Equatable {
         population: Int,
         car: Car,
         timezones: [String],
-        flags: Flag
+        flags: Flag,
+        coordinate: Coordinate?
     ) {
         self.names = names
         self.currencies = currencies
@@ -43,6 +45,7 @@ class Country: Codable, Equatable {
         self.car = car
         self.timezones = timezones
         self.flags = flags
+        self.coordinate = coordinate
     }
     
     enum CodingKeys: String, CodingKey {
@@ -56,6 +59,7 @@ class Country: Codable, Equatable {
         case car
         case timezones
         case flags
+        case coordinate = "latlng"
     }
     
     required init(from decoder: Decoder) throws {
@@ -87,6 +91,15 @@ class Country: Codable, Equatable {
         car = try container.decode(Car.self, forKey: .car)
         timezones = try container.decode([String].self, forKey: .timezones)
         flags = try container.decode(Flag.self, forKey: .flags)
+        let coordinateData = try container.decodeIfPresent([Double].self, forKey: .coordinate)
+        if let coordinateData, coordinateData.count == 2 {
+            let latitude = coordinateData.first!
+            let longitude = coordinateData.last!
+            let coordinate = Coordinate(latitude: latitude, longitude: longitude)
+            self.coordinate = coordinate
+        } else {
+            coordinate = nil
+        }
     }
     
     func encode(to encoder: Encoder) throws {
