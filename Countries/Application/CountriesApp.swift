@@ -12,7 +12,7 @@ import SwiftData
 struct CountriesApp: App {
     var body: some Scene {
         WindowGroup {
-            SearchView()
+            EntryView()
         }
         .modelContainer(for: Country.self)
     }

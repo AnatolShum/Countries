@@ -25,8 +25,8 @@ struct DetailView: View {
                 latitude: coordinate.latitude,
                 longitude: coordinate.longitude),
             span: MKCoordinateSpan(
-                latitudeDelta: 1,
-                longitudeDelta: 1)))
+                latitudeDelta: 5,
+                longitudeDelta: 5)))
     }
     
     var body: some View {
