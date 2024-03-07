@@ -25,6 +25,8 @@
 		3C9A41262B98E2F1007279B3 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A41252B98E2F1007279B3 /* EntryView.swift */; };
 		3C9A412B2B98E3B0007279B3 /* GlobeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A412A2B98E3B0007279B3 /* GlobeView.swift */; };
 		3C9A412D2B98E3C0007279B3 /* GlobeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A412C2B98E3C0007279B3 /* GlobeViewModel.swift */; };
+		3C9A41302B99BF1C007279B3 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A412F2B99BF1C007279B3 /* LocationManager.swift */; };
+		3C9A41322B99C4AA007279B3 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A41312B99C4AA007279B3 /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		3C9A41252B98E2F1007279B3 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		3C9A412A2B98E3B0007279B3 /* GlobeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobeView.swift; sourceTree = "<group>"; };
 		3C9A412C2B98E3C0007279B3 /* GlobeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobeViewModel.swift; sourceTree = "<group>"; };
+		3C9A412F2B99BF1C007279B3 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		3C9A41312B99C4AA007279B3 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,7 @@
 		3C1F86202B907CEF00B7C9B4 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				3C9A412E2B99BF04007279B3 /* LocationManager */,
 				3C1F86342B90B07700B7C9B4 /* ContextManager */,
 				3C1F861F2B907CDB00B7C9B4 /* Network */,
 			);
@@ -138,6 +143,7 @@
 				3C1F862C2B9082CC00B7C9B4 /* Car.swift */,
 				3C1F86302B9083C000B7C9B4 /* Flag.swift */,
 				3C2437BE2B978BF7006BAA06 /* Coordinate.swift */,
+				3C9A41312B99C4AA007279B3 /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -253,6 +259,14 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		3C9A412E2B99BF04007279B3 /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				3C9A412F2B99BF1C007279B3 /* LocationManager.swift */,
+			);
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -324,8 +338,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C1F86362B90B09200B7C9B4 /* ContextManager.swift in Sources */,
+				3C9A41302B99BF1C007279B3 /* LocationManager.swift in Sources */,
 				3C2437B82B963C7B006BAA06 /* DetailView.swift in Sources */,
 				3C2437B02B95E67C006BAA06 /* Currency.swift in Sources */,
+				3C9A41322B99C4AA007279B3 /* Location.swift in Sources */,
 				3C1F86222B907D0900B7C9B4 /* NetworkManager.swift in Sources */,
 				3C9A412D2B98E3C0007279B3 /* GlobeViewModel.swift in Sources */,
 				3C47F5242B9077720094D308 /* SearchView.swift in Sources */,
@@ -475,6 +491,7 @@
 				DEVELOPMENT_TEAM = MRF492JZG4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To show current location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -504,6 +521,7 @@
 				DEVELOPMENT_TEAM = MRF492JZG4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To show current location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

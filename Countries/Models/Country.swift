@@ -9,7 +9,7 @@ import UIKit
 import SwiftData
 
 @Model
-class Country: Codable, Equatable {
+class Country: Codable, Equatable, Comparable {
     var names: CountryName
     var currencies: [Currency]
     var capital: [String]?
@@ -119,4 +119,7 @@ class Country: Codable, Equatable {
         return lhs.id == rhs.id
     }
     
+    static func < (lhs: Country, rhs: Country) -> Bool {
+        lhs.names.name < rhs.names.name
+    }
 }

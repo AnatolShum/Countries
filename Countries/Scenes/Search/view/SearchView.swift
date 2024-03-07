@@ -32,16 +32,12 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                if viewModel.error != nil {
-                    Text(viewModel.error!)
-                } else {
-                    List {
-                        ForEach(filteredCountries) { country in
-                            NavigationLink {
-                                DetailView(country: country)
-                            }  label: {
-                                Text(country.names.name)
-                            }
+                List {
+                    ForEach(filteredCountries) { country in
+                        NavigationLink {
+                            DetailView(country: country)
+                        }  label: {
+                            Text(country.names.name)
                         }
                     }
                 }
@@ -49,11 +45,6 @@ struct SearchView: View {
             .navigationTitle("Countries")
         }
         .searchable(text: $searchQuery, prompt: "Country")
-        .onAppear {
-            if countries.isEmpty {
-                viewModel.fetchCountries(modelContext)
-            }
-        }
         .overlay {
             if filteredCountries.isEmpty {
                 ContentUnavailableView.search
