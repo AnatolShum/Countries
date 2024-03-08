@@ -9,6 +9,7 @@ import Foundation
 import SwiftData
 import CoreLocation
 import Combine
+import _MapKit_SwiftUI
 
 class GlobeViewModel: ObservableObject {
     private let networkManager = NetworkManager<Country>()
@@ -61,5 +62,39 @@ class GlobeViewModel: ObservableObject {
         
         self.contextManager = ContextManager()
         self.contextManager?.createModel(models: locations, modelContext: modelContext)
+    }
+    
+    func updatePosition(countries: [Country], searchQuery: String) -> MapCameraPosition? {
+        guard !searchQuery.isEmpty else { return nil }
+        let filteredCountries = countries.compactMap { country in
+            let contentsQuery = country.names.name.range(of: searchQuery, options: .caseInsensitive) != nil
+            
+            return contentsQuery ? country : nil
+        }
+        
+        guard let country = filteredCountries.sorted(by: <).first else { return nil }
+        guard let coordinate = country.coordinate else { return nil }
+        
+        return MapCameraPosition.region(
+            MKCoordinateRegion(
+                center: CLLocationCoordinate2D(
+                    latitude: coordinate.latitude,
+                    longitude: coordinate.longitude),
+                span: MKCoordinateSpan(
+                    latitudeDelta: 5,
+                    longitudeDelta: 5)))
+    }
+    
+    func updatePosition(locationManager: LocationManager) -> MapCameraPosition? {
+        guard let latitude = locationManager.location?.latitude else { return nil }
+        guard let longitude = locationManager.location?.longitude else { return nil }
+        return MapCameraPosition.region(
+            MKCoordinateRegion(
+                center: CLLocationCoordinate2D(
+                    latitude: latitude,
+                    longitude: longitude),
+                span: MKCoordinateSpan(
+                    latitudeDelta: 5,
+                    longitudeDelta: 5)))
     }
 }

@@ -31,20 +31,22 @@ struct SearchView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                List {
+            ScrollView {
+                VStack {
                     ForEach(filteredCountries) { country in
                         NavigationLink {
                             DetailView(country: country)
                         }  label: {
-                            Text(country.names.name)
+                            CellView(country: country)
+                                .padding(.horizontal, 20)
                         }
                     }
+                    .navigationTitle("Countries")
                 }
             }
-            .navigationTitle("Countries")
         }
         .searchable(text: $searchQuery, prompt: "Country")
+        
         .overlay {
             if filteredCountries.isEmpty {
                 ContentUnavailableView.search

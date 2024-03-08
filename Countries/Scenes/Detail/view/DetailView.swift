@@ -142,7 +142,6 @@ struct DetailView: View {
                 if let position {
                     Map(initialPosition: position, interactionModes: [.zoom])
                         .frame(height: 500)
-                    
                 }
             }
         }

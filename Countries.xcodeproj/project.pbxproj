@@ -28,6 +28,7 @@
 		3C9A41302B99BF1C007279B3 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A412F2B99BF1C007279B3 /* LocationManager.swift */; };
 		3C9A41322B99C4AA007279B3 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A41312B99C4AA007279B3 /* Location.swift */; };
 		3C9A41352B9B241B007279B3 /* CLLocationCoordinate2DCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A41342B9B241B007279B3 /* CLLocationCoordinate2DCodable.swift */; };
+		3C9A41372B9B70EC007279B3 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9A41362B9B70EC007279B3 /* CellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		3C9A412F2B99BF1C007279B3 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		3C9A41312B99C4AA007279B3 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3C9A41342B9B241B007279B3 /* CLLocationCoordinate2DCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2DCodable.swift; sourceTree = "<group>"; };
+		3C9A41362B9B70EC007279B3 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				3C47F5232B9077720094D308 /* SearchView.swift */,
+				3C9A41362B9B70EC007279B3 /* CellView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				3C2437BF2B978BF7006BAA06 /* Coordinate.swift in Sources */,
 				3C2437BA2B963C92006BAA06 /* DetailViewModel.swift in Sources */,
 				3C9A41262B98E2F1007279B3 /* EntryView.swift in Sources */,
+				3C9A41372B9B70EC007279B3 /* CellView.swift in Sources */,
 				3C9A412B2B98E3B0007279B3 /* GlobeView.swift in Sources */,
 				3C1F862D2B9082CC00B7C9B4 /* Car.swift in Sources */,
 				3C1F861E2B907CC500B7C9B4 /* SearchViewModel.swift in Sources */,

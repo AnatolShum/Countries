@@ -59,37 +59,15 @@ struct GlobeView: View {
                 }
             }
             .onChange(of: searchQuery) { _, newValue in
-                guard !newValue.isEmpty else { return }
-                let filteredCountries = countries.compactMap { country in
-                    let contentsQuery = country.names.name.range(of: newValue, options: .caseInsensitive) != nil
-                    
-                    return contentsQuery ? country : nil
-                }
-                
-                guard let country = filteredCountries.sorted(by: <).first else { return }
-                guard let coordinate = country.coordinate else { return }
-                
-                self.position = MapCameraPosition.region(
-                    MKCoordinateRegion(
-                        center: CLLocationCoordinate2D(
-                            latitude: coordinate.latitude,
-                            longitude: coordinate.longitude),
-                        span: MKCoordinateSpan(
-                            latitudeDelta: 5,
-                            longitudeDelta: 5)))
+                guard let position = viewModel.updatePosition(
+                    countries: countries,
+                    searchQuery: newValue) else { return }
+                self.position = position
             }
             .onChange(of: locationManager.location?.latitude) { _, _ in
-                guard let latitude = locationManager.location?.latitude else { return }
-                guard let longitude = locationManager.location?.longitude else { return }
-                self.position = MapCameraPosition.region(
-                    MKCoordinateRegion(
-                        center: CLLocationCoordinate2D(
-                            latitude: latitude,
-                            longitude: longitude),
-                        span: MKCoordinateSpan(
-                            latitudeDelta: 5,
-                            longitudeDelta: 5)))
-        }
+                guard let position = viewModel.updatePosition(locationManager: locationManager) else { return }
+                self.position = position
+            }
         }
         .toolbarBackground(.hidden, for: .navigationBar)
         .ignoresSafeArea(edges: .top)
