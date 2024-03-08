@@ -7,9 +7,21 @@
 
 import Foundation
 import CoreLocation
+import SwiftData
 
-struct Location: Identifiable {
+@Model
+class Location: Identifiable {
     let id: UUID = UUID()
-    let name: String
-    let coordinate: CLLocationCoordinate2D
+    var name: String
+    var coordinate: CLLocationCoordinate2D
+    var country: Country?
+    
+    init(name: String, coordinate: CLLocationCoordinate2D, country: Country? = nil) {
+        self.name = name
+        self.coordinate = coordinate
+        self.country = country
+    }
+    
+    
 }
+

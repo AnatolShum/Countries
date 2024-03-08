@@ -12,6 +12,7 @@ import SwiftData
 struct GlobeView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var countries: [Country]
+    @Query private var locations: [Location]
     @ObservedObject private var viewModel = GlobeViewModel()
     @ObservedObject private var locationManager = LocationManager()
     @State private var searchQuery = ""
@@ -29,13 +30,13 @@ struct GlobeView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack(alignment: .top) {
                 Map(position: $position) {
-                    ForEach(viewModel.locations) { location in
+                    ForEach(locations) { location in
                         Annotation(location.name, coordinate: location.coordinate) {
                             NavigationLink {
-//                                DetailView(country: country)
+                                DetailView(country: location.country!)
                             } label: {
                                 Image(systemName: "mappin")
                                     .frame(width: 15, height: 15)
@@ -53,7 +54,9 @@ struct GlobeView: View {
                 if countries.isEmpty {
                     viewModel.fetchCountries(modelContext)
                 }
-                viewModel.addLocations(from: countries)
+                if locations.isEmpty {
+                    viewModel.addLocations(from: countries, modelContext: modelContext)
+                }
             }
             .onChange(of: searchQuery) { _, newValue in
                 guard !newValue.isEmpty else { return }
@@ -88,6 +91,8 @@ struct GlobeView: View {
                             longitudeDelta: 5)))
         }
         }
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .ignoresSafeArea(edges: .top)
     }
     
     @ViewBuilder var searchBar: some View {

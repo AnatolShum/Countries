@@ -9,7 +9,7 @@ import UIKit
 import SwiftData
 
 @Model
-class Country: Codable, Equatable, Comparable {
+class Country: Codable, Equatable, Comparable, Identifiable {
     var names: CountryName
     var currencies: [Currency]
     var capital: [String]?
@@ -21,6 +21,7 @@ class Country: Codable, Equatable, Comparable {
     var timezones: [String]
     var flags: Flag
     var coordinate: Coordinate?
+    var location: Location?
     
     init(
         names: CountryName,
@@ -33,7 +34,8 @@ class Country: Codable, Equatable, Comparable {
         car: Car,
         timezones: [String],
         flags: Flag,
-        coordinate: Coordinate?
+        coordinate: Coordinate?,
+        location: Location? = nil
     ) {
         self.names = names
         self.currencies = currencies
@@ -46,6 +48,7 @@ class Country: Codable, Equatable, Comparable {
         self.timezones = timezones
         self.flags = flags
         self.coordinate = coordinate
+        self.location = location
     }
     
     enum CodingKeys: String, CodingKey {

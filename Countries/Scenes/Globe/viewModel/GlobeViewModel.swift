@@ -14,7 +14,6 @@ class GlobeViewModel: ObservableObject {
     private let networkManager = NetworkManager<Country>()
     private var cancellable: AnyCancellable?
     private var contextManager: ContextManager?
-    @Published var locations: [Location] = []
     @Published var error: String?
     
     func fetchCountries(_ modelContext: ModelContext) {
@@ -40,20 +39,27 @@ class GlobeViewModel: ObservableObject {
                 }
             }, receiveValue: { [weak self] countries in
                 self?.contextManager = ContextManager()
-                self?.contextManager?.createModel(countries: countries, modelContext: modelContext)
+                self?.contextManager?.createModel(models: countries, modelContext: modelContext)
             })
     }
     
-    func addLocations(from countries: [Country]) {
-        countries.sorted(by: <).forEach { (country: Country) in
-            guard let coordinate = country.coordinate else { return }
-            let location = Location(
-                name: country.names.name,
-                coordinate: CLLocationCoordinate2D(
-                    latitude: coordinate.latitude,
-                    longitude: coordinate.longitude))
+    func addLocations(from countries: [Country], modelContext: ModelContext) {
+        let locations = countries.compactMap { (country: Country) -> Location? in
+            if let coordinate = country.coordinate {
+                let location = Location(
+                    name: country.names.name,
+                    coordinate: CLLocationCoordinate2D(
+                        latitude: coordinate.latitude,
+                        longitude: coordinate.longitude),
+                    country: country)
+                
+                return location
+            }
             
-            self.locations.append(location)
+            return nil
         }
+        
+        self.contextManager = ContextManager()
+        self.contextManager?.createModel(models: locations, modelContext: modelContext)
     }
 }

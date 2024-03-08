@@ -10,8 +10,8 @@ import SwiftData
 import SwiftUI
 
 class ContextManager {
-    func createModel(countries: [Country], modelContext: ModelContext) {
-        countries.forEach { (value: Country) in
+    func createModel<Model: PersistentModel>(models: [Model], modelContext: ModelContext) {
+        models.forEach { (value: Model) in
             modelContext.insert(value)
         }
     }
