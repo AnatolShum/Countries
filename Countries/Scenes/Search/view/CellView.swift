@@ -24,6 +24,7 @@ struct CellView: View {
                     .padding(.leading, 4)
             } placeholder: {
                 ProgressView()
+                    .frame(width: 60)
             }
             
             Text(country.names.name)
