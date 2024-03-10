@@ -50,91 +50,55 @@ struct DetailView: View {
                     }
                     .padding(.bottom, 10)
                     
-                    HStack(alignment: .top) {
-                        Text("Official name:")
-                        Text(country.names.officialName)
-                            .bold()
-                    }
-                    .padding(.bottom, 10)
+                    TextView(
+                        title: "Official name:",
+                        description: country.names.officialName)
                     
                     if let capital = country.capital {
-                        HStack {
-                            Text("Capital:")
-                            Text(capital.joined(separator: ", "))
-                                .bold()
-                        }
-                        .padding(.bottom, 10)
+                        TextView(
+                            title: "Capital:",
+                            description: capital.joined(separator: ", "))
                     }
                     
                     if let currency = viewModel.formattedCurrency() {
-                        HStack(alignment: .top) {
-                            Text("Currency:")
-                            
-                            VStack(alignment: .leading) {
-                                Text(currency)
-                                    .bold()
-                            }
-                        }
-                        .padding(.bottom, 10)
+                        TextView(
+                            title: "Currency:",
+                            description: currency,
+                            alignment: .top)
                     }
                     
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text("Region:")
-                            Text(country.region)
-                                .bold()
-                        }
-                        
-                        if let subregion = country.subregion {
-                            Text(subregion)
-                                .bold()
-                        }
-                    }
-                    .padding(.bottom, 10)
+                    TextView(
+                        title: "Region:",
+                        description: country.subregion != nil ?
+                        "\(country.region), \(country.subregion!)" : country.region,
+                        alignment: country.subregion != nil ? .top : .center)
                     
                     if !country.languages.isEmpty {
-                        HStack {
-                            Text(country.languages.count == 1 ? "Language:" : "Languages:")
-                            Text(country.languages.joined(separator: ", "))
-                                .bold()
-                        }
-                        .padding(.bottom, 10)
+                        TextView(
+                            title: country.languages.count == 1 ? "Language:" : "Languages:",
+                            description: country.languages.joined(separator: ", "))
                     }
                     
-                    HStack {
-                        Text("Population:")
-                        Text(country.population.formatted(.number))
-                            .bold()
-                    }
-                    .padding(.bottom, 10)
+                    TextView(
+                        title: "Population:",
+                        description: country.population.formatted(.number))
                     
-                    HStack {
-                        Text("Left/Right-hand traffic:")
-                        Text(country.car.side)
-                            .bold()
-                    }
-                    .padding(.bottom, 10)
+                    TextView(
+                        title: "Left/Right-hand traffic:",
+                        description: country.car.side)
                     
                     if !country.timezones.isEmpty {
-                        HStack(alignment: .top) {
-                            Text(country.timezones.count == 1 ? "Time zone:" : "Time zones:")
-                            VStack(alignment: .leading) {
-                                Text(country.timezones.joined(separator: ", "))
-                                    .bold()
-                            }
-                        }
-                        .padding(.bottom, 10)
+                        TextView(
+                            title: country.timezones.count == 1 ? "Time zone:" : "Time zones:",
+                            description: country.timezones.joined(separator: ", "),
+                            alignment: .top)
                     }
                     
                     if let flagInfo = country.flags.info {
-                        HStack(alignment: .top) {
-                            Text("Flag info:")
-                            
-                            VStack(alignment: .leading) {
-                                Text(flagInfo)
-                                    .bold()
-                            }
-                        }
+                        TextView(
+                            title: "Flag info:",
+                            description: flagInfo,
+                            alignment: .top)
                     }
                 }
                 .padding(.horizontal, 30)
